@@ -1,0 +1,413 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ahorcado.vista;
+
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import javax.swing.ImageIcon;
+
+/**
+ *
+ * @author Comisión #60 C.F.P. n°11
+ */
+public class Vista extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Vista
+     */
+    public Vista() {
+        initComponents();
+        setIconImage( new ImageIcon(getClass().getResource("/ahorcado/resources/logo.png" )).getImage());
+        estadosIniciales();
+    }
+    
+    /**
+     * Cuando se inicia el programa, no se permite al usuario ingresar ni tocar
+     * el boton Aceptar.
+     */
+    private void estadosIniciales(){
+        botonAceptar.setEnabled(false);
+        txtIngresar.setEnabled(false);
+    }
+    
+    /**
+     * Metodo que asigna los Listener a los botones o textos
+     * @param ha ActionListener para el boton aceptar
+     * @param hci KeyListener para la entrada de texto
+     * @param hi ActionListener para el boton iniciar
+     */
+    public void setHandlers(ActionListener ha, KeyListener hci, ActionListener hi, ActionListener hab,ActionListener hm){
+        this.botonAceptar.addActionListener(ha);
+        this.txtIngresar.addKeyListener(hci);
+        this.txtIngresar.addActionListener(ha);
+        this.botonMusic.addActionListener(hm);
+        this.botonIniciar.addActionListener(hi);
+        this.botonAbout.addActionListener(hab);
+    }
+    
+    /**
+     * 
+     * @return Devuelve lo que ingresa el usuario
+     */
+    public String getTxt(){
+        return this.txtIngresar.getText();
+    }
+    
+    /**
+     * Vacia el campo luego de que el usuario ingresó una letra
+     */
+    public void vaciarTxt(){
+        this.txtIngresar.setText("");
+    }
+    
+    /**
+     * Dibuja rayas (guion bajo) en la parte visual que representa la cantidad de letras
+     * de la palabra
+     * @param cant Cantidad de rayas a dibujar
+     */
+    public void setRayasRespuesta(int cant){
+        String rayas = "";
+        for(int i = 0; i < cant; i++)
+            rayas += "_ ";
+        labelRespuesta.setText(rayas);
+    }
+    
+    /**
+     * Si el usuario pierde, muestra la respuesta y no deja ingresar mas letras
+     * @param respuesta Palabra que es la respuesta al juego
+     */
+    public void mostrarRespuesta(String respuesta){
+        labelRespuesta.setText(respuesta);
+        botonAceptar.setEnabled(false);
+        txtIngresar.setEnabled(false);
+    }
+    
+    /**
+     * Muestra al usuario la cantidad de letras que tiene la palabra
+     * @param cant Cantidad de letras que tiene la palabra
+     */
+    public void setTotalLetras(int cant){
+        labelTotalLetras.setText(Integer.toString(cant));
+    }
+    
+    public void setDescripcion(String descripcion){
+        labelDescripcion.setText(descripcion);
+    }
+    
+    public void setCantIntentos(int cant){
+        labelCantIntentos.setText(Integer.toString(cant));
+    }
+    
+    /**
+     * Si el usuario acertó la letra, la muestra.
+     * Se utiliza dos String ya que los String son inmutables. 
+     * El primero copia el valor de la respuesta. 
+     * El segundo utiliza el metodo substring para insertar la letra en su espacio
+     * correspondiente.
+     * La logica de pos+pos se debe a que las rayas tienen un espacio de por medio
+     * @param letra Caracter que el usuario adivinó correctamente
+     * @param pos Posicion donde se dibujará el caracter
+     */
+    public void setLetra(char letra, int pos){
+        String cpy = labelRespuesta.getText();
+        String cpy2 = cpy.substring(0, pos+pos)+letra+cpy.substring(pos+pos+1);
+        labelRespuesta.setText(cpy2);
+    }
+    
+    /**
+     * Cambia el background de acuerdo a la cantidad de intentos que tiene el usuario
+     * @param i parte del nombre en la carpeta resources
+     */
+    public void setImageBackground(int i){
+        labelAhorcado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ahorcado/resources/a"+i+"Anim.gif"))); // NOI18N
+
+    }
+    
+    /**
+     * Cada vez que se empieza el juego otra vez, habilita los botones, ya que 
+     * posiblemente el jugador perdió y eso los deshabilita en el otro metodo
+     */
+    public void habilitarInicio(){
+        botonAceptar.setEnabled(true);
+        txtIngresar.setEnabled(true);
+    }
+    
+    public void testGif(){
+        labelAhorcado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ahorcado/resources/a0Anim.gif")));
+        //ImageIcon imageIcon = new ImageIcon(Vista.this.getClass().getResource("/ahorcado/resources/test.gif"));
+        //imageIcon.setImageObserver(jLabel1);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        labelCantLetras = new javax.swing.JLabel();
+        labelDescripcion = new javax.swing.JLabel();
+        labelAhorcado = new javax.swing.JLabel();
+        labelTotalLetras = new javax.swing.JLabel();
+        labelRespuesta = new javax.swing.JLabel();
+        labelCantIntentos = new javax.swing.JLabel();
+        botonAbout = new javax.swing.JButton();
+        txtIngresar = new javax.swing.JTextField();
+        botonAceptar = new javax.swing.JButton();
+        botonIniciar = new javax.swing.JButton();
+        botonMusic = new javax.swing.JButton();
+        labelBackground = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("The Hangman Game CFP°11 ");
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(null);
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.setMaximumSize(null);
+        jPanel1.setName(""); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setLayout(null);
+
+        jPanel2.setOpaque(false);
+
+        labelCantLetras.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        labelCantLetras.setForeground(new java.awt.Color(255, 204, 0));
+        labelCantLetras.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelCantLetras.setText("Cantidad de Letras:");
+        labelCantLetras.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        labelDescripcion.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        labelDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        labelDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelDescripcion.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        labelAhorcado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelAhorcado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ahorcado/resources/a6Anim.gif"))); // NOI18N
+
+        labelTotalLetras.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        labelTotalLetras.setForeground(new java.awt.Color(255, 204, 0));
+        labelTotalLetras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelTotalLetras.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        labelRespuesta.setFont(new java.awt.Font("Chiller", 0, 60)); // NOI18N
+        labelRespuesta.setForeground(new java.awt.Color(255, 0, 51));
+        labelRespuesta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        labelCantIntentos.setFont(new java.awt.Font("Impact", 0, 60)); // NOI18N
+        labelCantIntentos.setForeground(new java.awt.Color(157, 148, 82));
+        labelCantIntentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        botonAbout.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        botonAbout.setText("ABOUT");
+        botonAbout.setBorder(null);
+        botonAbout.setBorderPainted(false);
+        botonAbout.setContentAreaFilled(false);
+        botonAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAboutActionPerformed(evt);
+            }
+        });
+
+        txtIngresar.setBackground(new java.awt.Color(255, 253, 172));
+        txtIngresar.setFont(new java.awt.Font("Chiller", 0, 36)); // NOI18N
+        txtIngresar.setForeground(new java.awt.Color(255, 51, 51));
+        txtIngresar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIngresar.setName(""); // NOI18N
+        txtIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIngresarActionPerformed(evt);
+            }
+        });
+
+        botonAceptar.setBackground(new java.awt.Color(204, 204, 0));
+        botonAceptar.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        botonAceptar.setText("ACEPTAR");
+        botonAceptar.setBorder(null);
+        botonAceptar.setBorderPainted(false);
+        botonAceptar.setContentAreaFilled(false);
+        botonAceptar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
+
+        botonIniciar.setBackground(new java.awt.Color(204, 204, 0));
+        botonIniciar.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
+        botonIniciar.setText("INICIAR");
+        botonIniciar.setBorder(null);
+        botonIniciar.setBorderPainted(false);
+        botonIniciar.setContentAreaFilled(false);
+        botonIniciar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIniciarActionPerformed(evt);
+            }
+        });
+
+        botonMusic.setBackground(new java.awt.Color(255, 204, 0));
+        botonMusic.setFont(new java.awt.Font("Impact", 0, 11)); // NOI18N
+        botonMusic.setText("MUSIC");
+        botonMusic.setAlignmentY(0.0F);
+        botonMusic.setMargin(null);
+        botonMusic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMusicActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(258, 258, 258))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(labelCantIntentos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(453, 453, 453)
+                        .addComponent(labelCantLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelTotalLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(labelAhorcado, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(botonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(120, 120, 120)
+                                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(135, 135, 135)
+                                .addComponent(botonAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelRespuesta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(164, 164, 164)
+                        .addComponent(labelRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTotalLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelCantLetras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(botonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79)
+                                .addComponent(botonAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(319, 319, 319))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(labelAhorcado, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(110, 110, 110)))
+                        .addComponent(labelCantIntentos, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)))
+                .addGap(18, 18, 18)
+                .addComponent(botonMusic)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(40, 0, 950, 710);
+
+        labelBackground.setBackground(new java.awt.Color(0, 0, 0));
+        labelBackground.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ahorcado/resources/TheHangmanGamebackground.jpg"))); // NOI18N
+        labelBackground.setMaximumSize(new java.awt.Dimension(1024, 768));
+        labelBackground.setMinimumSize(new java.awt.Dimension(1024, 768));
+        labelBackground.setPreferredSize(new java.awt.Dimension(1024, 768));
+        jPanel1.add(labelBackground);
+        labelBackground.setBounds(4, 0, 1020, 770);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonIniciarActionPerformed
+
+    private void txtIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIngresarActionPerformed
+
+    private void botonMusicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMusicActionPerformed
+    }//GEN-LAST:event_botonMusicActionPerformed
+
+    private void botonAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAboutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAboutActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAbout;
+    private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton botonIniciar;
+    private javax.swing.JButton botonMusic;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelAhorcado;
+    private javax.swing.JLabel labelBackground;
+    private javax.swing.JLabel labelCantIntentos;
+    private javax.swing.JLabel labelCantLetras;
+    private javax.swing.JLabel labelDescripcion;
+    private javax.swing.JLabel labelRespuesta;
+    private javax.swing.JLabel labelTotalLetras;
+    private javax.swing.JTextField txtIngresar;
+    // End of variables declaration//GEN-END:variables
+}
