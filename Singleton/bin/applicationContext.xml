@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd
+">
+
+<!-- Cargar archivo de propiedades--> 
+<context:property-placeholder location="classpath:datosEmpresa.propiedades"/>
+
+
+<!-- Creaciónd e la dependencia--> 
+<bean id="miInforme" class="ar.nec.DependenciesInjection.Informe">
+</bean>
+
+<bean id="miEmpleado" class="ar.nec.DependenciesInjection.DirectorEmpleado">
+<constructor-arg ref="miInforme"></constructor-arg>
+</bean>
+
+<bean id="miSecretarioEmpleado" class="ar.nec.DependenciesInjection.SecretarioEmpleado">
+<!-- Con constructor era la etiqueta constructor-arg, con setter es property -->
+<!-- dentro del tag property va el método setter, pero sacándole la palabra set, 
+	y la próxima letra que eestá en mayúscula, pasarla a minúscula -->
+<property name="nuevoInforme" ref="miInforme"></property>
+<property name="email" value="${email}"></property>
+<property name="nomEmpresa" value="${nomEmpresa}"></property>
+</bean>
+
+</beans>
